@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { X, Calendar, Clock, Users } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
+import { api } from "../hooks/backendUrl";
 
 interface CreateTaskModalProps {
   isOpen: boolean;
@@ -35,7 +36,7 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch("/api/users", {
+      const response = await fetch(`${api}/api/users`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -62,7 +63,7 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
           })),
       };
 
-      const response = await fetch("/api/tasks", {
+      const response = await fetch(`${api}/api/tasks`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -3,6 +3,7 @@ import { Search, Plus, Filter, LogOut } from "lucide-react";
 import TaskCard from "./TaskCard";
 import { useAuth } from "../context/AuthContext";
 import CreateTaskModal from "./CreateTaskModal";
+import { api } from "../hooks/backendUrl";
 
 interface TaskExplorerProps {
   onTaskSelect: (taskId: string) => void;
@@ -44,7 +45,7 @@ const TaskExplorer: React.FC<TaskExplorerProps> = ({ onTaskSelect }) => {
 
   const fetchTasks = async () => {
     try {
-      const response = await fetch("/api/tasks", {
+      const response = await fetch(`${api}/api/tasks`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { TrendingUp, Clock, CheckCircle, Users, FileText } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
+import { api } from "../hooks/backendUrl";
 
 interface OverviewProps {
   onTaskSelect: (taskId: string) => void;
@@ -22,7 +23,7 @@ const Overview: React.FC<OverviewProps> = ({ onTaskSelect }) => {
 
   const fetchOverviewData = async () => {
     try {
-      const response = await fetch("/api/tasks", {
+      const response = await fetch(`${api}/api/tasks`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

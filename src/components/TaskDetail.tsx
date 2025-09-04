@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ArrowLeft, Clock, Users, Upload } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
+import { api } from "../hooks/backendUrl";
 
 interface TaskDetailProps {
   taskId: string;
@@ -22,7 +23,7 @@ const TaskDetail: React.FC<TaskDetailProps> = ({ taskId, onBack }) => {
 
   const fetchTask = async () => {
     try {
-      const response = await fetch(`/api/tasks/${taskId}`, {
+      const response = await fetch(`${api}/api/tasks/${taskId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -42,7 +43,7 @@ const TaskDetail: React.FC<TaskDetailProps> = ({ taskId, onBack }) => {
     completed: boolean
   ) => {
     try {
-      await fetch(`/api/tasks/${taskId}/assessment`, {
+      await fetch(`${api}/api/tasks/${taskId}/assessment`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -66,7 +67,7 @@ const TaskDetail: React.FC<TaskDetailProps> = ({ taskId, onBack }) => {
         });
       }
       // Submit the task
-      const response = await fetch(`/api/tasks/${taskId}/submit`, {
+      const response = await fetch(`${api}/api/tasks/${taskId}/submit`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -77,7 +78,7 @@ const TaskDetail: React.FC<TaskDetailProps> = ({ taskId, onBack }) => {
       console.log(response);
       if (response.ok) {
         // Set progress to 100% for the user
-        await fetch(`/api/tasks/${taskId}/progress`, {
+        await fetch(`${api}/api/tasks/${taskId}/progress`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
