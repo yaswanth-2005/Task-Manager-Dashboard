@@ -86,7 +86,7 @@ const Overview: React.FC<OverviewProps> = ({ onTaskSelect }) => {
   return (
     <div className="flex-1 bg-gray-50">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b border-gray-200 p-6">
+      {/* <div className="bg-white shadow-sm border-b border-gray-200 p-6">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-gray-800">Overview</h1>
@@ -98,7 +98,7 @@ const Overview: React.FC<OverviewProps> = ({ onTaskSelect }) => {
             </span>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="p-6 max-w-7xl mx-auto">
         {/* Stats Cards */}

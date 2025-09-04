@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Search, Plus, Filter } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { Search, Plus, Filter, LogOut } from "lucide-react";
 import TaskCard from "./TaskCard";
 import { useAuth } from "../context/AuthContext";
 import CreateTaskModal from "./CreateTaskModal";
@@ -16,12 +16,27 @@ const TaskExplorer: React.FC<TaskExplorerProps> = ({ onTaskSelect }) => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [loading, setLoading] = useState(true);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const profileMenuRef = useRef<HTMLDivElement>(null);
 
-  const { user, logout } = useAuth();
+  // const { user, logout } = useAuth();
 
   useEffect(() => {
     fetchTasks();
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        profileMenuRef.current &&
+        !profileMenuRef.current.contains(event.target as Node)
+      ) {
+        setIsProfileOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [profileMenuRef]);
 
   useEffect(() => {
     filterTasks();
@@ -91,7 +106,7 @@ const TaskExplorer: React.FC<TaskExplorerProps> = ({ onTaskSelect }) => {
     <div className="flex-1 bg-gray-50">
       {/* Header */}
       <div className="bg-white shadow-sm border-b border-gray-200 p-6">
-        <div className="flex items-center justify-between mb-6">
+        {/* <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="text-2xl font-bold text-gray-800">Explore Task</h1>
           </div>
@@ -103,13 +118,47 @@ const TaskExplorer: React.FC<TaskExplorerProps> = ({ onTaskSelect }) => {
               <Plus size={16} />
               <span>New Task</span>
             </button>
-            <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
-              <span className="text-gray-600 font-semibold text-sm">
-                {user?.name?.charAt(0)?.toUpperCase()}
-              </span>
-            </div>{" "}
+            <div className="relative" ref={profileMenuRef}>
+              <button
+                onClick={() => setIsProfileOpen(!isProfileOpen)}
+                className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                <span className="text-gray-600 font-semibold text-sm">
+                  {user?.name?.charAt(0)?.toUpperCase()}
+                </span>
+              </button>
+              {isProfileOpen && (
+                <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-xl z-10 border border-gray-200">
+                  <div className="p-4 border-b border-gray-200">
+                    <p className="font-semibold text-gray-800 truncate">
+                      {user?.name}
+                    </p>
+                    <p className="text-sm text-gray-500 truncate">
+                      {user?.email}
+                    </p>
+                  </div>
+                  <div className="p-4">
+                    <p className="text-xs text-gray-400 uppercase mb-1 font-medium">
+                      Role
+                    </p>
+                    <p className="text-sm text-gray-700 capitalize">
+                      {user?.role}
+                    </p>
+                  </div>
+                  <div className="p-2 border-t border-gray-200">
+                    <button
+                      onClick={logout}
+                      className="w-full flex items-center space-x-2 px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors text-left"
+                    >
+                      <LogOut size={16} />
+                      <span className="text-sm">Logout</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        </div> */}
         <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
           <div className="flex-1 relative">
             <Search
