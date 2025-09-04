@@ -1,6 +1,13 @@
-import React from 'react';
-import { Home, CheckSquare, Users, MessageSquare, Settings, LogOut } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
+import React from "react";
+import {
+  Home,
+  CheckSquare,
+  Users,
+  MessageSquare,
+  Settings,
+  LogOut,
+} from "lucide-react";
+import { useAuth } from "../context/AuthContext";
 
 interface SidebarProps {
   activeTab: string;
@@ -11,11 +18,11 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
   const { user, logout } = useAuth();
 
   const menuItems = [
-    { id: 'overview', label: 'Overview', icon: Home },
-    { id: 'tasks', label: 'Task', icon: CheckSquare },
-    { id: 'mentors', label: 'Mentors', icon: Users },
-    { id: 'messages', label: 'Message', icon: MessageSquare },
-    { id: 'settings', label: 'Settings', icon: Settings },
+    { id: "overview", label: "Overview", icon: Home },
+    { id: "tasks", label: "Task", icon: CheckSquare },
+    { id: "mentors", label: "Mentors", icon: Users },
+    { id: "messages", label: "Message", icon: MessageSquare },
+    { id: "settings", label: "Settings", icon: Settings },
   ];
 
   return (
@@ -39,8 +46,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
                   onClick={() => setActiveTab(item.id)}
                   className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-colors ${
                     activeTab === item.id
-                      ? 'bg-indigo-100 text-indigo-700'
-                      : 'text-gray-600 hover:bg-gray-100'
+                      ? "bg-indigo-100 text-indigo-700"
+                      : "text-gray-600 hover:bg-gray-100"
                   }`}
                 >
                   <Icon size={20} />

@@ -126,7 +126,7 @@ const TaskDetail: React.FC<TaskDetailProps> = ({ taskId, onBack }) => {
   return (
     <div className="flex-1 bg-gray-50">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b border-gray-200 p-6">
+      <div className="bg-white shadow-sm border-b border-gray-200 p-4 md:p-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <button
@@ -140,7 +140,7 @@ const TaskDetail: React.FC<TaskDetailProps> = ({ taskId, onBack }) => {
               <p className="text-gray-600">{task.category}</p>
             </div>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-4">
             <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm font-medium">
               Sort by: Deadline
             </span>
@@ -148,7 +148,7 @@ const TaskDetail: React.FC<TaskDetailProps> = ({ taskId, onBack }) => {
           </div>
         </div>
       </div>
-      <div className="p-6 max-w-7xl mx-auto">
+      <div className="p-4 md:p-6 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">

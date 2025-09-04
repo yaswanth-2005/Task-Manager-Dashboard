@@ -17,6 +17,8 @@ const TaskExplorer: React.FC<TaskExplorerProps> = ({ onTaskSelect }) => {
   const [loading, setLoading] = useState(true);
   const [showCreateModal, setShowCreateModal] = useState(false);
 
+  const { user, logout } = useAuth();
+
   useEffect(() => {
     fetchTasks();
   }, []);
@@ -101,10 +103,14 @@ const TaskExplorer: React.FC<TaskExplorerProps> = ({ onTaskSelect }) => {
               <Plus size={16} />
               <span>New Task</span>
             </button>
-            <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
+            <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
+              <span className="text-gray-600 font-semibold text-sm">
+                {user?.name?.charAt(0)?.toUpperCase()}
+              </span>
+            </div>{" "}
           </div>
         </div>
-        <div className="flex items-center space-x-4">
+        <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
           <div className="flex-1 relative">
             <Search
               className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
@@ -115,13 +121,13 @@ const TaskExplorer: React.FC<TaskExplorerProps> = ({ onTaskSelect }) => {
               placeholder="Search Task"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
             />
           </div>
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+            className="w-full md:w-auto px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
           >
             <option value="all">All Categories</option>
             <option value="UI/UX Design">UI/UX Design</option>
