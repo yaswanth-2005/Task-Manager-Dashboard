@@ -29,7 +29,7 @@ app.use("/api/users", userRoutes);
 
 app.use(
   cors({
-    origin: "https://task-manager-dashboard-rust.vercel.app/",
+    origin: "https://task-manager-dashboard-rust.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })

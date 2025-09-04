@@ -5,6 +5,7 @@ import TaskDetail from "./TaskDetail";
 import Overview from "./Overview";
 import { Users, Menu, X, Plus, LogOut } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
+import CreateTaskModal from "./CreateTaskModal";
 
 const Dashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState("overview");
@@ -12,6 +13,7 @@ const Dashboard: React.FC = () => {
   const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const profileMenuRef = useRef<HTMLDivElement>(null);
+  const [showCreateModal, setShowCreateModal] = useState(false);
 
   const { user, logout } = useAuth();
 
@@ -57,7 +59,10 @@ const Dashboard: React.FC = () => {
         {/* Right side actions */}
         <div className="flex items-center space-x-4">
           {/* {user?.role !== "student" && ( */}
-          <button className="hidden md:flex px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors items-center space-x-2">
+          <button
+            className="hidden md:flex px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors items-center space-x-2"
+            onClick={() => setShowCreateModal(true)}
+          >
             <Plus size={16} />
             <span>New Task</span>
           </button>
@@ -209,6 +214,16 @@ const Dashboard: React.FC = () => {
       </div>
 
       {renderContent()}
+
+      {showCreateModal && (
+        <CreateTaskModal
+          isOpen={showCreateModal}
+          onClose={() => setShowCreateModal(false)}
+          onTaskCreated={() => {
+            setShowCreateModal(false);
+          }}
+        />
+      )}
     </div>
   );
 };
